@@ -1,11 +1,10 @@
-[submodule "libs/STI"]
-    path = libs/STI
-    url = https://github.com/karai17/Simple-Tiled-Implementation
-
 [submodule "libs/anim8"]
-    path = libs/anim8
-    url = https://github.com/kikito/anim8
+	path = libs/anim8
+	url = https://github.com/kikito/anim8.git
 
 [submodule "libs/hump"]
-    path = libs/hump
-    url = https://github.com/vrld/hump
+	path = libs/hump
+	url = https://github.com/vrld/hump.git
+[submodule "libs/sti"]
+	path = libs/sti
+	url = https://github.com/karai17/Simple-Tiled-Implementation.git
