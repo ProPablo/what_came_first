@@ -8,7 +8,6 @@ function StateMachine:new()
     local sm = {
         currentState = nil,
         states = {},
-        sharedData = {} -- Global shared object for passing data between states
     }
     setmetatable(sm, StateMachine)
     return sm
@@ -16,8 +15,8 @@ end
 
 function StateMachine:addState(name, state)
     self.states[name] = state
+    -- This kinda only works for person, not chicken
     state.stateMachine = self -- Give each state access to the state machine
-    state.sharedData = self.sharedData -- Give each state access to shared data
 end
 
 function StateMachine:transitionTo(stateName, ...)

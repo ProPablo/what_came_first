@@ -4,9 +4,9 @@
 vector = require "libs.hump.vector"
 
 local game = {}
-totalChickens = 20
 
 function love.load()
+    if arg[#arg] == "-debug" then require("mobdebug").start() end
     love.graphics.setDefaultFilter("nearest", "nearest")
     sti = require("libs/sti/sti")
     anim8 = require("libs/anim8/anim8")
@@ -27,33 +27,38 @@ function love.load()
 end
 
 function game:enter()
-    map                          = sti("tiled_map.lua")
+    map       = sti("tiled_map.lua")
 
-    mapWidth               = map.width * map.tilewidth
-    mapHeight              = map.height * map.tileheight
+    mapWidth  = map.width * map.tilewidth
+    mapHeight = map.height * map.tileheight
 
     require("player")
     setupPlayer()
 
-    cam                          = Camera()
+    require("chicken")
+    setupChicken()
 
-    chickenPrefab                = {}
+    cam = Camera()
 
-    chickens                     = {}
+    cam:zoomTo(7)
 end
 
 function game:update(dt)
-
     --    print("Player position: (" .. player.x .. ", " .. player.y .. ")") -- Use this for debugging
     -- Update camera
     cam:lookAt(player.x, player.y)
-    cam:zoomTo(7)
 
     player.stateMachine:update(dt)
     player.anim:update(dt)
 
-    map:update(dt)
+    -- Update chickens
+    for _, chicken in ipairs(chickens) do
+        if chicken.statemachine then
+            chicken.statemachine:update(dt)
+        end
+    end
 
+    map:update(dt)
 end
 
 function game:draw()
@@ -64,6 +69,13 @@ function game:draw()
     map:drawLayer(map.layers["Extra"])
     map:drawLayer(map.layers["Foliage"])
     player.stateMachine:draw()
+
+    for _, chicken in ipairs(chickens) do
+        if chicken.statemachine then
+            chicken.statemachine:draw()
+        end
+    end
+
     -- Sprites are at top left, so offset it before scale
     player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1, nil, 24, 24)
     cam:detach()

@@ -17,7 +17,7 @@ end
 function IdleState:onEnter()
     print("Entering Idle State")
     -- Set the appropriate idle animation based on last direction
-    local direction = self.sharedData.lastDirection or "down"
+    local direction = player.lastDirection or "down"
     player.anim = player.animations["idle_" .. direction]
 end
 
@@ -31,24 +31,24 @@ function IdleState:update(dt)
 
     if love.keyboard.isDown("w", "up") then
         inputVector.y = -1
-        self.sharedData.lastDirection = "up"
+        player.lastDirection = "up"
     elseif love.keyboard.isDown("s", "down") then
         inputVector.y = 1
-        self.sharedData.lastDirection = "down"
+        player.lastDirection = "down"
     end
 
     if love.keyboard.isDown("a", "left") then
         inputVector.x = -1
-        self.sharedData.lastDirection = "left"
+        player.lastDirection = "left"
     elseif love.keyboard.isDown("d", "right") then
         inputVector.x = 1
-        self.sharedData.lastDirection = "right"
+        player.lastDirection = "right"
     end
 
     -- If there's input, normalize and save movement vector, then transition to running
     if inputVector:len() > 0 then
         inputVector = inputVector:normalized()
-        self.sharedData.movementVector = inputVector
+        player.movementVector = inputVector
         self.stateMachine:transitionTo("running")
     end
 
@@ -72,7 +72,7 @@ end
 function RunningState:onEnter()
     print("Entering Running State")
     -- Set the appropriate running animation based on movement direction
-    local direction = self.sharedData.lastDirection or "down"
+    local direction = player.lastDirection or "down"
     player.anim = player.animations["run_" .. direction]
 end
 
@@ -86,18 +86,18 @@ function RunningState:update(dt)
 
     if love.keyboard.isDown("w", "up") then
         inputVector.y = -1
-        self.sharedData.lastDirection = "up"
+        player.lastDirection = "up"
     elseif love.keyboard.isDown("s", "down") then
         inputVector.y = 1
-        self.sharedData.lastDirection = "down"
+        player.lastDirection = "down"
     end
 
     if love.keyboard.isDown("a", "left") then
         inputVector.x = -1
-        self.sharedData.lastDirection = "left"
+        player.lastDirection = "left"
     elseif love.keyboard.isDown("d", "right") then
         inputVector.x = 1
-        self.sharedData.lastDirection = "right"
+        player.lastDirection = "right"
     end
 
     -- If no input, transition back to idle
@@ -108,7 +108,7 @@ function RunningState:update(dt)
 
     -- Normalize input vector and store it
     inputVector = inputVector:normalized()
-    self.sharedData.movementVector = inputVector
+    player.movementVector = inputVector
 
     -- Move player using vector
     local moveVector = inputVector * player.speed * dt
@@ -116,7 +116,7 @@ function RunningState:update(dt)
     player.y = player.y + moveVector.y
 
     -- Update animation based on current direction
-    local direction = self.sharedData.lastDirection
+    local direction = player.lastDirection
     player.anim = player.animations["run_" .. direction]
 
     -- Update current animation
