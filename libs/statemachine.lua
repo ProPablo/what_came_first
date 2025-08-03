@@ -56,7 +56,9 @@ end
 function State:onEnter() end
 function State:onExit() end
 function State:update(dt) end
-function State:draw() end
+function State:draw()
+    print("Drawing state: " .. self.__name)
+end
 
 return {
     StateMachine = StateMachine,
