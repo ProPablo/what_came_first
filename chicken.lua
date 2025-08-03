@@ -1,6 +1,7 @@
 totalChickens = 20
 
-local statemachine = require('libs.statemachine') 
+local statemachine = require('libs.statemachine')
+local vector = require('libs.hump.vector')
 
 local IdleState = {}
 IdleState.__index = IdleState
@@ -16,9 +17,7 @@ end
 
 function IdleState:onEnter()
     local chicken = self.chicken
-    print("Chicken " .. chicken.id .. " is now idle")
 
-    -- Reset idle timer
     self.idleTimer = 0
     self.maxIdleTime = love.math.random(2, 5)
 end
@@ -27,8 +26,12 @@ function IdleState:update(dt)
     self.idleTimer = self.idleTimer + dt
     self.chicken.animations.idle:update(dt)
     if self.idleTimer >= self.maxIdleTime then
-        -- Transition to walking state after idle time
-        self.chicken.statemachine:transitionTo("walk")
+        -- Pick either walking or clucking state randomly
+        if love.math.random() < 0.8 then
+            self.chicken.statemachine:transitionTo("walk")
+        else
+            self.chicken.statemachine:transitionTo("cluck")
+        end
     end
 end
 
@@ -51,7 +54,6 @@ end
 
 function WalkingState:onEnter()
     local chicken = self.chicken
-    print("Chicken " .. chicken.id .. " is now walking")
 
     -- Reset walk timer
     self.walkTimer = 0
@@ -59,6 +61,11 @@ function WalkingState:onEnter()
 
     -- Set a random direction for the chicken to walk
     chicken.direction = vector(love.math.random(-1, 1), love.math.random(-1, 1)):normalized()
+
+    self.flipDirection = false
+    if chicken.direction.x < 0 then
+        self.flipDirection = true
+    end
 end
 
 function WalkingState:update(dt)
@@ -69,19 +76,21 @@ function WalkingState:update(dt)
     chicken.x = chicken.x + chicken.direction.x * chicken.speed * dt
     chicken.y = chicken.y + chicken.direction.y * chicken.speed * dt
 
+
     chicken.animations.walk:update(dt)
 
     -- Check if the walk time is over
     if self.walkTimer >= self.maxWalkTime then
-        -- Transition to idle state after walking
         self.chicken.statemachine:transitionTo("idle")
     end
 end
 
 function WalkingState:draw()
     local chicken = self.chicken
-    chicken.animations.walk:draw(chickenPrefab.spriteSheet, chicken.x, chicken.y, nil, 1, nil, 8, 8)
+    local scaleX = self.flipDirection and -1 or 1
+    chicken.animations.walk:draw(chickenPrefab.spriteSheet, chicken.x, chicken.y, nil, scaleX, 1, 8, 8)
 end
+
 
 local CluckingState = {}
 CluckingState.__index = CluckingState
@@ -97,9 +106,6 @@ end
 
 function CluckingState:onEnter()
     local chicken = self.chicken
-    print("Chicken " .. chicken.id .. " is now clucking")
-
-    -- Reset cluck timer
     self.cluckTimer = 0
     self.maxCluckTime = love.math.random(1, 3)
 end
@@ -107,10 +113,7 @@ end
 function CluckingState:update(dt)
     self.cluckTimer = self.cluckTimer + dt
     self.chicken.animations.cluck:update(dt)
-
-    -- Check if the cluck time is over
     if self.cluckTimer >= self.maxCluckTime then
-        -- Transition back to idle state after clucking
         self.chicken.statemachine:transitionTo("idle")
     end
 end
@@ -121,23 +124,25 @@ function CluckingState:draw()
 end
 
 function setupChicken()
-    chickenPrefab                  = {}
-    chickens                       = {}
-    chickenPrefab.spriteSheet      = love.graphics.newImage(
+    chickenPrefab             = {}
+    chickens                  = {}
+    chickenPrefab.spriteSheet = love.graphics.newImage(
         "assets/sprout_lands/Animals/Chicken/chicken default.png"
     )
-    chickenPrefab.grid             = anim8.newGrid(
+    chickenPrefab.grid        = anim8.newGrid(
         16, 16,
         chickenPrefab.spriteSheet:getWidth(),
         chickenPrefab.spriteSheet:getHeight()
     )
 
-    local animations = {}
-    animations.idle = anim8.newAnimation(chickenPrefab.grid('4-4', 1), 1)
-    animations.walk = anim8.newAnimation(chickenPrefab.grid('1-8', 3), 0.3)
-    animations.cluck = anim8.newAnimation(chickenPrefab.grid('1-7', 2), 0.3)
 
     for i = 1, totalChickens, 1 do
+        local animations = {}
+        animations.idle = anim8.newAnimation(chickenPrefab.grid('4-4', 1), 1)
+        animations.walk = anim8.newAnimation(chickenPrefab.grid('1-8', 3), 0.08)
+        animations.cluck = anim8.newAnimation(chickenPrefab.grid('1-7', 2), 0.1)
+        animations.layEgg = anim8.newAnimation(chickenPrefab.grid('1-4', 4), 0.1)
+
         local chicken = {
             x = math.random(0, mapWidth),
             y = math.random(0, mapHeight),
@@ -157,4 +162,21 @@ function setupChicken()
 
         table.insert(chickens, chicken)
     end
+
+    eggPrefab = {
+        spriteSheet = love.graphics.newImage(
+            "assets/sprout_lands/Animals/Chicken/egg.png"
+        ),
+        grid = anim8.newGrid(
+            16, 16,
+            chickenPrefab.spriteSheet:getWidth(),
+            chickenPrefab.spriteSheet:getHeight()
+        )
+    }
+    eggAnimations = {}
+    eggAnimations.idle = anim8.newAnimation(eggPrefab.grid('1-1', 1), 1)
+    eggAnimations.hatch = anim8.newAnimation(eggPrefab.grid('1-4', 1), 0.1)
+
+    eggs = {}
+
 end
