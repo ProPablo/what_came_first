@@ -8,3 +8,6 @@
 [submodule "libs/sti"]
 	path = libs/sti
 	url = https://github.com/karai17/Simple-Tiled-Implementation.git
+[submodule "libs/windfield"]
+	path = libs/windfield
+	url = https://github.com/a327ex/windfield.git

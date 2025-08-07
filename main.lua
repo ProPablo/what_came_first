@@ -1,18 +1,23 @@
 -- Run this to hot reload
 -- nodemon --exec "love ." --ext lua --ignore node_modules
 
-vector = require "libs.hump.vector"
 
 local game = {}
 
 function love.load()
     if arg[#arg] == "-debug" then require("mobdebug").start() end
     love.graphics.setDefaultFilter("nearest", "nearest")
+
+    -- Some of the libs may need love so we require them here
     sti = require("libs/sti/sti")
     anim8 = require("libs/anim8/anim8")
     Camera = require("libs/hump/camera")
     Gamestate = require("libs/hump/gamestate")
+    vector = require "libs.hump.vector"
+    wf = require("libs/windfield/windfield")
 
+    love.physics.setMeter(1) -- 64 pixels = 1 meter
+    world = wf.newWorld(0, 0, true)
 
     -- love.window.setMode(800, 600, {
     --     resizable = true,
@@ -24,6 +29,7 @@ function love.load()
 
     Gamestate.registerEvents()
     Gamestate.switch(game)
+    print("Meter is " .. love.physics.getMeter() .. " pixels")
 end
 
 function game:enter()
@@ -49,6 +55,7 @@ function game:update(dt)
     cam:lookAt(player.x, player.y)
 
     player.stateMachine:update(dt)
+    playerBaseUpdate()
     player.anim:update(dt)
 
     -- Update chickens
@@ -59,6 +66,7 @@ function game:update(dt)
     end
 
     map:update(dt)
+    world:update(dt)
 end
 
 function game:draw()
@@ -78,6 +86,7 @@ function game:draw()
 
     -- Sprites are at top left, so offset it before scale
     player.anim:draw(player.spriteSheet, player.x, player.y, nil, 1, nil, 24, 24)
+    world:draw()
     cam:detach()
 end
 
