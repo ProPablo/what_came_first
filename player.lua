@@ -19,8 +19,8 @@ function IdleState:onEnter()
     -- Set the appropriate idle animation based on last direction
     local direction = player.lastDirection or "down"
     player.anim = player.animations["idle_" .. direction]
-    player.movementVector = vector(0, 0) 
-    player.collider:setLinearVelocity(0, 0) 
+    player.movementVector = vector(0, 0)
+    player.collider:setLinearVelocity(0, 0)
 end
 
 function IdleState:onExit()
@@ -54,12 +54,8 @@ function IdleState:update(dt)
         self.stateMachine:transitionTo("running")
     end
 
-    -- Update current animation
-    if player.anim then
-        player.anim:update(dt)
-    end
+    player.anim:update(dt)
 end
-
 
 -- Running State
 local RunningState = {}
@@ -113,7 +109,7 @@ function RunningState:update(dt)
     player.movementVector = inputVector
 
     -- Move player using vector
-    local moveVector = inputVector * player.speed * dt
+    local moveVector = inputVector * player.speed
     player.collider:setLinearVelocity(moveVector.x, moveVector.y)
 
     -- Update animation based on current direction
@@ -121,9 +117,7 @@ function RunningState:update(dt)
     player.anim = player.animations["run_" .. direction]
 
     -- Update current animation
-    if player.anim then
-        player.anim:update(dt)
-    end
+    player.anim:update(dt)
 end
 
 function setupPlayer()
@@ -132,7 +126,7 @@ function setupPlayer()
         x = mapWidth / 2,
         y = mapHeight / 2,
         -- speed = 2240 -- 70* 32
-        speed = 70* 60
+        speed = 70
     }
 
     player.spriteSheet           = love.graphics.newImage(
@@ -158,19 +152,18 @@ function setupPlayer()
     player.animations.walk_right = anim8.newAnimation(player.grid('1-8', 11), 0.10) -- walk right animation
     player.animations.walk_up    = anim8.newAnimation(player.grid('1-8', 10), 0.10) -- walk up animation
 
-    -- player.collider = world:newBSGRectangleCollider(player.x, player.y, 12, 18, 3)
-    player.collider = world:newBSGRectangleCollider(player.x, player.y, 48, 48, 3)
+    player.collider = world:newBSGRectangleCollider(player.x, player.y, 12, 18, 3)
     player.collider:setFixedRotation(true)
     -- player.collider:setCollisionClass("Player")
 
-    player.anim                  = player.animations.idle_up
+    player.anim         = player.animations.idle_up
     -- Initialize state machine
-    player.stateMachine           = statemachine.StateMachine:new()
+    player.stateMachine = statemachine.StateMachine:new()
 
     -- Idle State
-    local idleState              = IdleState:new()
+    local idleState     = IdleState:new()
     -- Running State
-    local runningState           = RunningState:new()
+    local runningState  = RunningState:new()
 
     -- Add states
     player.stateMachine:addState("idle", idleState)
@@ -178,7 +171,6 @@ function setupPlayer()
 
     -- Set initial state
     player.stateMachine:transitionTo("idle")
-
 end
 
 function playerBaseUpdate()

@@ -141,9 +141,16 @@ function setupChicken()
         animations.cluck = anim8.newAnimation(chickenPrefab.grid('1-7', 2), 0.1)
         animations.layEgg = anim8.newAnimation(chickenPrefab.grid('1-4', 4), 0.1)
 
+        local spawnPosition = vector(love.math.random(0, mapWidth), love.math.random(0, mapHeight))
+        
+
+        spawnPosition.x = love.math.random(chickenArea.x, chickenArea.x + chickenArea.width)
+        spawnPosition.y = love.math.random(chickenArea.y, chickenArea.y +chickenArea.height)
+
+
         local chicken = {
-            x = math.random(0, mapWidth),
-            y = math.random(0, mapHeight),
+            x = spawnPosition.x,
+            y = spawnPosition.y,
             speed = 50,
             statemachine = statemachine.StateMachine:new(),
             id = i,
@@ -176,5 +183,15 @@ function setupChicken()
     eggAnimations.hatch = anim8.newAnimation(eggPrefab.grid('1-4', 1), 0.1)
 
     eggs = {}
+end
 
+-- Helper to get a random point inside the polygon
+function getRandomPointInPolygon(polygon, bbox)
+    local minX, minY, maxX, maxY = bbox.minX, bbox.minY, bbox.maxX, bbox.maxY
+    for _ = 1, 1000 do -- limit attempts
+        local x = math.random(minX, maxX)
+        local y = math.random(minY, maxY)
+
+    end
+    error("Could not find a valid spawn point in chicken_area polygon")
 end

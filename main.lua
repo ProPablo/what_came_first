@@ -33,7 +33,18 @@ function love.load()
 end
 
 function game:enter()
-    map       = sti("tiled_map.lua")
+    map = sti("tiled_map.lua")
+
+    chickenArea = map.layers["Chicken_area"].objects[1]
+    local verts = {}
+    for i, vert in ipairs(chickenArea.polygon) do
+        table.insert(verts, vert.x)
+        table.insert(verts, vert.y)
+    end
+    chickenAreaPolygon = world:newPolygonCollider(verts)
+    chickenAreaPolygon:setType("static")
+    chickenAreaFixture = chickenAreaPolygon.fixture
+    local points = {   chickenAreaPolygon.shape:getPoints()}
 
     mapWidth  = map.width * map.tilewidth
     mapHeight = map.height * map.tileheight
@@ -45,7 +56,6 @@ function game:enter()
     setupChicken()
 
     cam = Camera()
-
     cam:zoomTo(7)
 end
 
@@ -56,7 +66,6 @@ function game:update(dt)
 
     player.stateMachine:update(dt)
     playerBaseUpdate()
-    player.anim:update(dt)
 
     -- Update chickens
     for _, chicken in ipairs(chickens) do
@@ -95,5 +104,16 @@ function love.keypressed(key, u)
     -- This is basically a REPL so you can call print from here
     if key == "rctrl" then --set to whatever key you want to use
         debug.debug()
+    end
+end
+
+function love.wheelmoved(x, y)
+    if cam then
+        local currentZoom = cam.scale
+        if y > 0 then
+            cam:zoomTo(math.min(currentZoom + 1, 20))
+        elseif y < 0 then
+            cam:zoomTo(math.max(currentZoom - 1, 1))
+        end
     end
 end

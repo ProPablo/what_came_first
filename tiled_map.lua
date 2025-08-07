@@ -9,8 +9,8 @@ return {
   height = 20,
   tilewidth = 16,
   tileheight = 16,
-  nextlayerid = 8,
-  nextobjectid = 1,
+  nextlayerid = 12,
+  nextobjectid = 22,
   properties = {},
   tilesets = {
     {
@@ -721,44 +721,48 @@ return {
       tilecount = 77,
       tiles = {
         {
+          id = 12,
+          probability = 5
+        },
+        {
           id = 55,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 56,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 57,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 58,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 59,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 66,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 67,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 68,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 69,
-          probability = 0.08
+          probability = 0.02
         },
         {
           id = 70,
-          probability = 0.08
+          probability = 0.02
         }
       }
     },
@@ -938,14 +942,14 @@ return {
       properties = {},
       encoding = "lua",
       data = {
-        172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 172, 173, 0, 0, 0, 0, 0, 0, 0, 0,
-        241, 183, 183, 183, 183, 241, 239, 183, 230, 183, 183, 183, 183, 183, 183, 183, 238, 183, 183, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
-        230, 183, 183, 230, 183, 239, 226, 183, 241, 183, 226, 239, 183, 183, 183, 183, 228, 183, 183, 229, 228, 184, 0, 0, 0, 0, 0, 0, 0, 0,
-        239, 237, 227, 241, 227, 239, 240, 238, 183, 183, 240, 183, 239, 183, 183, 226, 237, 183, 183, 183, 240, 184, 0, 0, 0, 0, 0, 0, 0, 0,
-        183, 240, 183, 183, 183, 183, 183, 183, 226, 183, 183, 229, 183, 240, 237, 183, 183, 183, 183, 240, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
-        241, 183, 183, 183, 183, 230, 239, 183, 240, 183, 183, 183, 183, 183, 228, 183, 183, 183, 229, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
-        226, 239, 230, 230, 226, 183, 183, 183, 238, 226, 229, 238, 229, 183, 239, 237, 228, 238, 241, 183, 237, 184, 0, 0, 0, 0, 0, 0, 0, 0,
-        194, 194, 188, 229, 183, 183, 183, 183, 183, 183, 230, 183, 183, 241, 229, 183, 241, 183, 239, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 229, 183, 239, 183, 183, 183, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 238, 183, 183, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        241, 183, 183, 228, 183, 183, 183, 183, 183, 183, 183, 226, 183, 183, 183, 183, 228, 183, 183, 229, 228, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 240, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        183, 226, 183, 183, 226, 183, 183, 226, 183, 183, 183, 237, 183, 183, 183, 183, 183, 239, 183, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        183, 183, 183, 183, 183, 183, 183, 183, 229, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        183, 227, 183, 183, 183, 183, 183, 183, 183, 183, 183, 229, 183, 183, 183, 183, 183, 183, 183, 183, 237, 184, 0, 0, 0, 0, 0, 0, 0, 0,
+        194, 194, 188, 241, 183, 238, 238, 183, 183, 229, 183, 183, 183, 183, 229, 183, 183, 183, 183, 183, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 193, 194, 194, 194, 194, 194, 194, 194, 194, 194, 194, 194, 194, 194, 194, 188, 228, 240, 183, 184, 0, 0, 0, 0, 0, 0, 0, 0,
         168, 169, 169, 169, 169, 169, 169, 169, 169, 169, 169, 169, 169, 169, 169, 169, 170, 193, 194, 194, 194, 195, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1078,6 +1082,231 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 8,
+      name = "Collisions",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 11,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 358,
+          y = 0,
+          width = 51,
+          height = 14,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 12,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 422.5,
+          y = 25.5,
+          width = 46.5,
+          height = 44.5,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 13,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 443.5,
+          y = 95.5,
+          width = 21,
+          height = 33.5,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 14,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 444,
+          y = 129.5,
+          width = 22.5,
+          height = 28.5,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 15,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 448.5,
+          y = 177.5,
+          width = 15,
+          height = 28,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 16,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 423,
+          y = 257,
+          width = 33,
+          height = 28.5,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 17,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 375.5,
+          y = 258.75,
+          width = 33,
+          height = 28.5,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 18,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 308.333,
+          y = 126.333,
+          width = 15,
+          height = 13.3333,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 19,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 316.667,
+          y = 116,
+          width = 14.3333,
+          height = 13.3333,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 9,
+      name = "Fence",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 7,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 338.776,
+          y = 2.67807,
+          width = 10.2659,
+          height = 155.328,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 8,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 337.884,
+          y = 145.062,
+          width = 26.7807,
+          height = 12.944,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 9,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 353.059,
+          y = 144.17,
+          width = 12.0513,
+          height = 175.86,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 11,
+      name = "Chicken_area",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 21,
+          name = "main",
+          type = "",
+          shape = "polygon",
+          x = 341.25,
+          y = 0.5,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 135.5, y = -0.5 },
+            { x = 135.5, y = 319 },
+            { x = 24, y = 319.25 },
+            { x = 24.6667, y = 142.75 },
+            { x = 8.91667, y = 139.833 },
+            { x = 8.5, y = -0.0833333 }
+          },
+          properties = {}
+        }
       }
     }
   }
