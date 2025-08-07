@@ -131,7 +131,8 @@ function setupPlayer()
     player                       = {
         x = mapWidth / 2,
         y = mapHeight / 2,
-        speed = 2240 -- 70* 32
+        -- speed = 2240 -- 70* 32
+        speed = 70* 60
     }
 
     player.spriteSheet           = love.graphics.newImage(

@@ -16,7 +16,7 @@ function love.load()
     vector = require "libs.hump.vector"
     wf = require("libs/windfield/windfield")
 
-    love.physics.setMeter(1) -- 64 pixels = 1 meter
+    -- love.physics.setMeter(1) -- 64 pixels = 1 meter
     world = wf.newWorld(0, 0, true)
 
     -- love.window.setMode(800, 600, {
