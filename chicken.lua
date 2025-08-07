@@ -91,7 +91,6 @@ function WalkingState:draw()
     chicken.animations.walk:draw(chickenPrefab.spriteSheet, chicken.x, chicken.y, nil, scaleX, 1, 8, 8)
 end
 
-
 local CluckingState = {}
 CluckingState.__index = CluckingState
 function CluckingState:new(chicken)
@@ -135,7 +134,6 @@ function setupChicken()
         chickenPrefab.spriteSheet:getHeight()
     )
 
-
     for i = 1, totalChickens, 1 do
         local animations = {}
         animations.idle = anim8.newAnimation(chickenPrefab.grid('4-4', 1), 1)
@@ -165,7 +163,7 @@ function setupChicken()
 
     eggPrefab = {
         spriteSheet = love.graphics.newImage(
-            "assets/sprout_lands/Animals/Chicken/egg.png"
+            "assets/sprout_lands/Animals/Chicken_Egg/Egg_Spritesheet.png"
         ),
         grid = anim8.newGrid(
             16, 16,
